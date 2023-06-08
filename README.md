@@ -1,9 +1,16 @@
+<div align="center">
+
 # Paper analysis on zero-shot classification of 3D point cloud
+
+</div>
 
 In this blog post, I will review the paper PointCLIP: Point Cloud Understanding by CLIP published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the future works and my opinion on the paper.
 
+<div align="center">
 
 ## Introduction
+
+</div>
 
 Deep learning has undoubtedly revolutionized various computer vision tasks across both 2D and 3D domains, tackling problems such as image classification, object detection, semantic segmentation, and point cloud recognition. However, the evolving world of 3D technology, particularly with the advent of sophisticated 3D sensing, is continually pushing the boundaries of what deep learning models can achieve. 
 
@@ -26,7 +33,9 @@ As I said in the Introduction, PointCLIP tries to transfer the pretrained knowle
 
 CLIP (Contrastive Language–Image Pretraining) is a multimodal vision-language model developed by OpenAI. Its goal is to understand the relationship between images and text, which is achieved by representing images and text in the same embedding space. In this space, associated images and texts are mapped closer together. Now, let me explain how it works by dividing its pipeline into three parts and explaining each part one by one.
 
-![Image](CLIP.png)
+<div align="center">
+    <img src="CLIP.png" width="700"/>
+</div>
 
 - Contrastive Pre-Training: CLIP is trained with a contrastive learning approach. This technique pushes the model to identify which data are similar and which are different. CLIP is trained to bring related images and text closer while distancing unrelated images and text in the embedding space.
 - Creating a Dataset Classifier from Label Text: After CLIP is pre-trained, we get the optimized text- and image encoders, then it can be used for downstream tasks, such as image classification, without task-specific fine-tuning. All possible classes the object on the input image may belong to are converted into textual prompts, and we input these textual prompts to the text-encoder, then we get the vectors of these textual prompts in the embedding space.
