@@ -1,6 +1,6 @@
-# Paper analysis on PointCLIP
+# Paper analysis on zero-shot classification of 3D point cloud
 
-In this blog post, I will review the paper Depth Prediction Without the Sensors: Leveraging Structure for Unsupervised Learning from Monocular Videos published in AAAI 2019 [1]. After briefly introducing the topic and relevant concepts, I will explain the method in my own words. Then we will discuss the results and future works.
+In this blog post, I will review the paper PointCLIP: Point Cloud Understanding by CLIP published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the results and future works.
 
 ![Image](https://example.com/my-coding-journey.jpg)
 
@@ -43,7 +43,7 @@ Let's have a look at the main contributions of the paper:
 - An inter-view adapter is introduced upon PointCLIP and largely improves the performance by few-shot fine-tuning.
 - PointCLIP can be utilized as a multi-knowledge ensemble module to enhance the performance of existing fully-trained 3D networks.
 
-After listing the main contributions of the paper, let me explain zero-shot classification, few-shot classification and multi-knowledge ensembel, which conresponding to the first, second and last of the main contributions listed above, respectively.
+After listing the main contributions of the paper, let me explain how the paper realized zero-shot classification, few-shot classification and multi-knowledge ensembel, which conresponding to the first, second and last of the main contributions listed above, respectively.
 
 ### Zero-shot Classification
 
@@ -55,7 +55,7 @@ Classification logits for each view are calculated separately, and the final log
 
 Considering scenarios where only a few instances of each unseen category are available, the authors propose an inter-view adapter, a three-layer Multi-layer Perceptron (MLP) added to PointCLIP to enhance its performance in few-shot settings. During training, the visual and textual encoders of CLIP are frozen, and only the inter-view adapter is fine-tuned via cross-entropy loss.
 
-M-view features of a point cloud are concatenated along the channel dimension, and a compact global representation is obtained via two linear layers of the inter-view adapter. Features from multiple perspectives are fused into a summarizing vector, which is then used to generate a view-wise adapted feature via a residual connection. 
+M-view features of a point cloud are concatenated along the channel dimension, and a compact global representation is obtained via two linear layers of the inter-view adapter. Features from multiple perspectives are fused into a summarizing vector, which is then used to generate a view-wise adapted feature via a residual connection. The further calculation is the same as the calculation in zero-shot classification explained above.
 
 ### Multi-knowledge Ensemble
 
