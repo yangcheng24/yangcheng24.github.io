@@ -27,7 +27,7 @@ As I said in the Introduction, PointCLIP tries to transfer the pretrained knowle
 
 CLIP (Contrastive Language–Image Pretraining) is a multimodal vision-language model developed by OpenAI. Its goal is to understand the relationship between images and text, which is achieved by representing images and text in the same embedding space. In this space, associated images and texts are mapped closer together. Now, let me explain how it works by dividing its pipeline into three parts and explaining each part one by one.
 
-![Image](https://github.com/yangcheng24/yangcheng24.github.io/blob/main/CLIP.png)
+![Image](CLIP.png)
 
 - Contrastive Pre-Training: CLIP is trained with a contrastive learning approach. This technique pushes the model to identify which data are similar and which are different. CLIP is trained to bring related images and text closer while distancing unrelated images and text in the embedding space.
 - Creating a Dataset Classifier from Label Text: After CLIP is pre-trained, we get the optimized text- and image encoders, then it can be used for downstream tasks, such as image classification, without task-specific fine-tuning. All possible classes the object on the input image may belong to are converted into textual prompts, and we input these textual prompts to the text-encoder, then we get the vectors of these textual prompts in the embedding space.
