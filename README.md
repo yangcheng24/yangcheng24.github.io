@@ -1,6 +1,6 @@
 # Paper analysis on zero-shot classification of 3D point cloud
 
-In this blog post, I will review the paper PointCLIP: Point Cloud Understanding by CLIP published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the results and future works.
+In this blog post, I will review the paper PointCLIP: Point Cloud Understanding by CLIP published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the future works and my opinion on the paper.
 
 ![Image](https://example.com/my-coding-journey.jpg)
 
@@ -80,3 +80,26 @@ PointCLIP demonstrated distinct advantages when there were only a small number o
 
 In the third experimental setup, PointCLIP was compared with traditional 3D networks - PointNet, PointNet++, DGCNN, SimpleView, and CurveNet - to verify the effectiveness of blending pretrained 2D knowledge with 3D knowledge. The researchers found that ensemble models that included PointCLIP performed better than the 3D networks alone.
 Even though PointCLIP's accuracy was lower than the fully trained 3D models, it improved their performance when combined in an ensemble. The best performance was achieved by combining PointCLIP with the state-of-the-art CurveNet, achieving an accuracy of 94.08%. This experiment shows the complementary nature of PointCLIP to existing 3D models. The knowledge transferred from 2D to 3D via PointCLIP provides additional valuable information to traditional 3D learning methods.
+
+### Discussion
+
+As future work, authors suggest generalizing CLIP for wider 3D applications.
+I think PointCLIP is an innovative approach to 3D point cloud classification, and this paper has several **strong points**:
+
+- **Knowledge Transfer**: The authors demonstrate that PointCLIP effectively transfers knowledge from 2D to 3D, leveraging a pre-trained CLIP model to deal with 3D point clouds, which is quite innovative.
+
+- **Zero-shot and Few-shot Learning**: The paper shows promising results in zero-shot and few-shot learning settings, demonstrating the robustness and flexibility of PointCLIP.
+
+- **Detailed Experiments and Ablation Studies**: The authors conducted extensive experiments and ablation studies, providing a comprehensive understanding of how PointCLIP works and its performance under different settings. 
+
+However, there are also some **potential limitations**:
+
+- **Limited 3D Understanding**: While PointCLIP shows the capability to understand 3D data to a certain extent, its performance falls off in more complex scenarios. The paper admits that PointCLIP’s performance suffers when applied to noisy real-world scenes or datasets with more categories, indicating that it may lack the necessary sophistication for truly understanding 3D data.
+
+- **Dependency on Pre-trained Models**: PointCLIP's performance largely relies on the pre-trained CLIP model. How well it can generalize to other datasets or tasks is dependent on the quality of the pre-training.
+
+- **Computational Costs**: The use of multiple views and multiple prompt designs might increase computational costs. Depending on the hardware and software setup, this may limit the application of the approach.
+
+- **Lack of Comparative Analysis**: While the paper includes some comparisons with state-of-the-art models, a more thorough comparative analysis with other 3D point cloud classification methods would strengthen the results.
+
+In conclusion, while PointCLIP presents an intriguing new way to approach 3D point cloud classification, further research and development are required to fully realize its potential.
