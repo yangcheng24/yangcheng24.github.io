@@ -2,7 +2,6 @@
 
 In this blog post, I will review the paper PointCLIP: Point Cloud Understanding by CLIP published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the future works and my opinion on the paper.
 
-![Image](https://example.com/my-coding-journey.jpg)
 
 ## Introduction
 
@@ -48,7 +47,7 @@ Let's have a look at the main contributions of the paper:
 After listing the main contributions of the paper, let me explain how the paper realized zero-shot classification, few-shot classification and multi-knowledge ensembel, which conresponding to the first, second and last of the main contributions listed above, respectively.
 
 ### Zero-shot Classification
-
+![Image](PointCLIP.png)
 In the zero-shot classification setting, the authors extract visual features from the projected images of different views using CLIP. For the textual branch, K category names are encoded as textual features within a predefined template. These features serve as a zero-shot classifier. 
 
 Classification logits for each view are calculated separately, and the final logits for the point cloud are obtained by performing a weighted summation of these individual logits. Each view's features encode a different perspective of the point cloud and are capable of independent zero-shot classification. Their aggregation further supplements the information from various perspectives to achieve a comprehensive understanding.
