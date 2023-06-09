@@ -21,7 +21,11 @@ In contrast, 2D vision tasks have made significant progress in mitigating simila
 This naturally leads us to a question: can such promising methods be successfully transferred to the more challenging domain of 3D point clouds? In this blog post, we introduce PointCLIP, a novel model that addresses this question by transferring CLIP's 2D pre-trained knowledge to 3D point cloud understanding. 
 
 
+<div align="center">
+
 ## Method
+
+</div>
 
 ### Terminology
 
@@ -58,7 +62,9 @@ After listing the main contributions of the paper, let me explain how the paper 
 ### Zero-shot Classification
 
 In the zero-shot classification setting, the authors extract visual features from the projected images of different views using CLIP. For the textual branch, K category names are encoded as textual features within a predefined template. These features serve as a zero-shot classifier. 
-![Image](PointCLIP.png)
+<div align="center">
+    <img src="CLIP.png" width="700"/>
+</div>
 
 Classification logits for each view are calculated separately, and the final logits for the point cloud are obtained by performing a weighted summation of these individual logits. Each view's features encode a different perspective of the point cloud and are capable of independent zero-shot classification. Their aggregation further supplements the information from various perspectives to achieve a comprehensive understanding.
 
@@ -66,8 +72,9 @@ Classification logits for each view are calculated separately, and the final log
 
 Considering scenarios where only a few instances of each unseen category are available, the authors propose an inter-view adapter, a three-layer Multi-layer Perceptron (MLP) added to PointCLIP to enhance its performance in few-shot settings. During training, the visual and textual encoders of CLIP are frozen, and only the inter-view adapter is fine-tuned via cross-entropy loss.
 
-![Image](few.png)
-
+<div align="center">
+    <img src="few.png" width="500"/>
+</div>
 
 M-view features of a point cloud are concatenated along the channel dimension, and a compact global representation is obtained via two linear layers of the inter-view adapter. Features from multiple perspectives are fused into a summarizing vector, which is then used to generate a view-wise adapted feature via a residual connection. The further calculation is the same as the calculation in zero-shot classification explained above.
 
@@ -75,18 +82,27 @@ M-view features of a point cloud are concatenated along the channel dimension, a
 
 Finally, the authors suggest the integration of PointCLIP with classical 3D networks. In practice, two models, PointNet++ and PointCLIP under 16-shot fine-tuning, are selected, and their predicted logits are simply added together to produce the final output. This ensemble approach enables the effective amalgamation of knowledge from both models, leading to improved joint inference. 
 
-![Image](ensemble.png)
+<div align="center">
+    <img src="ensemble.png" width="500"/>
+</div>
 
 In essence, PointCLIP offers a method for transferring 2D pre-trained knowledge to 3D point clouds, coupled with an ensemble strategy for enhancing results. Particularly in scenarios where it's not feasible to train an entire model using large-scale fully annotated data, fine-tuning the three-layer adapter of PointCLIP with few-shot data can yield competitive performance.
 
+<div align="center">
+
 ## Experimental results
+
+</div>
+
 
 ### Zero-shot Classification Settings
 
 PointCLIP was evaluated in a zero-shot classification setting on three popular datasets: ModelNet10, ModelNet40, and ScanObjectNN. The aim was to see how well PointCLIP could perform without any training data specific to these datasets. The pre-trained CLIP model used in this experiment employed ResNet-50 as the visual encoder and a transformer as the textual encoder.
 Point clouds from six orthogonal views (front, right, back, left, top, and bottom) were projected with each view having a relative weight value between 1 and 10. Point coordinates were normalized from -1 to 1 and image planes were set at a fixed distance away from the coordinate center. The projection settings influenced the point distribution on the image and the size of the projected object.
 
-![Image](0.png)
+<div align="center">
+    <img src="0.png" width="500"/>
+</div>
 
 PointCLIP performed surprisingly well without any 3D training, achieving 30.23% accuracy on the ModelNet10 dataset, a notable success in transferring knowledge from 2D to 3D. For ModelNet40 and ScanObjectNN, the performance was slightly worse, at 20.18% and 15.38% respectively, likely due to the lack of 3D-specific adaptations.
 
@@ -94,7 +110,9 @@ PointCLIP performed surprisingly well without any 3D training, achieving 30.23% 
 
 PointCLIP was further tested in a few-shot classification setting with varying amounts of shots (1, 2, 4, 8, 16) on the same datasets. The number of shots refers to the number of point clouds randomly sampled from each category in the training set. In this setting, the researchers used a stronger visual encoder (ResNet-101) for better feature extraction and increased the number of projected views to 10.
 
-![Image](few_shot.png)
+<div align="center">
+    <img src="few_shot.png" width="500"/>
+</div>
 
 PointCLIP demonstrated distinct advantages when there were only a small number of samples per category, surpassing PointNet by 25.49% and CurveNet by 12.29% on ModelNet40 with just one shot. Even with more training samples, PointCLIP continued to lead in performance.
 
@@ -102,11 +120,17 @@ PointCLIP demonstrated distinct advantages when there were only a small number o
 
 In the third experimental setup, PointCLIP was compared with traditional 3D networks - PointNet, PointNet++, DGCNN, SimpleView, and CurveNet - to verify the effectiveness of blending pretrained 2D knowledge with 3D knowledge. The researchers found that ensemble models that included PointCLIP performed better than the 3D networks alone.
 
-![Image](ensemble_result.png)
+<div align="center">
+    <img src="ensemble_result.png" width="500"/>
+</div>
 
 Even though PointCLIP's accuracy was lower than the fully trained 3D models, it improved their performance when combined in an ensemble. The best performance was achieved by combining PointCLIP with the state-of-the-art CurveNet, achieving an accuracy of 94.08%. This experiment shows the complementary nature of PointCLIP to existing 3D models. The knowledge transferred from 2D to 3D via PointCLIP provides additional valuable information to traditional 3D learning methods.
 
-### Discussion
+<div align="center">
+
+## Discussion
+
+</div>
 
 As future work, authors suggest generalizing CLIP for wider 3D applications.
 I think PointCLIP is an innovative approach to 3D point cloud classification, and this paper has several **strong points**:
