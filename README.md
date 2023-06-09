@@ -151,7 +151,6 @@ Even though PointCLIP's accuracy was lower than the fully trained 3D models, it 
 
 </div>
 
-As future work, authors suggest generalizing CLIP for wider 3D applications.
 I think PointCLIP is an innovative approach to 3D point cloud classification, and this paper has several **strong points**:
 
 - **Knowledge Transfer**: The authors demonstrate that PointCLIP effectively transfers knowledge from 2D to 3D, leveraging a pre-trained CLIP model to deal with 3D point clouds, which is quite innovative.
@@ -167,6 +166,12 @@ However, there are also some **potential limitations**:
 - **Dependency on Pre-trained Models**: PointCLIP's performance largely relies on the pre-trained CLIP model. How well it can generalize to other datasets or tasks is dependent on the quality of the pre-training.
 
 - **Computational Costs**: The use of multiple views and multiple prompt designs might increase computational costs. Depending on the hardware and software setup, this may limit the application of the approach.
+
+In view of its limitations, I think some **future works** should be done:
+
+- **Better 3D Understanding**: Since the performance of PointCLIP diminishes in complex 3D scenarios, future work could focus on improving the model's capacity for dealing with such situations. This could involve developing more sophisticated image projection techniques or incorporating additional 3D-specific data preprocessing.       
+- **Generalization to Other Datasets and Tasks**: PointCLIP's performance is based on the pre-trained CLIP model, which may limit its generalization capability. Future work could focus on making PointCLIP more adaptable to a wider range of datasets and tasks.                                                                   
+- **Improving Efficiency**: Future research could look into methods to reduce computational costs associated with using multiple views and multiple prompt designs. This could involve optimizing the model architecture or developing more efficient view selection or prompting strategies.
 
 In conclusion, while PointCLIP presents an intriguing new way to approach 3D point cloud classification, further research and development are required to fully realize its potential.
 
