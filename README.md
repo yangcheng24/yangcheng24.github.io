@@ -12,11 +12,11 @@ In this blog post, I will review the paper PointCLIP: Point Cloud Understanding 
 
 </div>
 
-Deep learning has undoubtedly revolutionized various computer vision tasks across both 2D and 3D domains, tackling problems such as image classification, object detection, semantic segmentation, and point cloud recognition. However, the evolving world of 3D technology, particularly with the advent of sophisticated 3D sensing, is continually pushing the boundaries of what deep learning models can achieve. 
+Deep learning has undoubtedly revolutionized various computer vision tasks across both 2D and 3D domains[2][3][4], tackling problems such as image classification, object detection, semantic segmentation, and point cloud recognition. However, the evolving world of 3D technology, particularly with the advent of sophisticated 3D sensing[5][6], is continually pushing the boundaries of what deep learning models can achieve. 
 
 One specific challenge in the 3D world is dealing with point clouds - sets of data points in space that represent objects. Unlike 2D image data, 3D point clouds often suffer from space sparsity and irregular distribution, making it challenging to directly apply methods from the 2D realm. Even more interestingly, many newly captured point clouds contain objects from "unseen" categories, i.e., objects the model hasn't been trained on. This opens up a real challenge since even the best classifier might fail to recognize these objects, and re-training models each time when these "unseen" objects arise can be quite impractical.
 
-In contrast, 2D vision tasks have made significant progress in mitigating similar issues, particularly through the use of Contrastive Vision-Language Pre-training (CLIP). By correlating vision and language, CLIP has shown promising results for zero-shot classification of "unseen" categories. Further enhancements have been achieved through the use of learnable tokens (CoOp), lightweight residual-style adapters (CLIP-Adapter), and efficiency improvements (Tip-Adapter). 
+In contrast, 2D vision tasks have made significant progress in mitigating similar issues, particularly through the use of Contrastive Vision-Language Pre-training (CLIP)[7]. By correlating vision and language, CLIP has shown promising results for zero-shot classification of "unseen" categories. Further enhancements have been achieved through the use of learnable tokens (CoOp), lightweight residual-style adapters (CLIP-Adapter), and efficiency improvements (Tip-Adapter). 
 
 This naturally leads us to a question: **can such promising methods be successfully transferred to the more challenging domain of 3D point clouds?** In this blog post, we introduce **PointCLIP**, a novel model that addresses this question by transferring CLIP's 2D pre-trained knowledge to 3D point cloud understanding. 
 
@@ -150,3 +150,17 @@ However, there are also some **potential limitations**:
 - **Computational Costs**: The use of multiple views and multiple prompt designs might increase computational costs. Depending on the hardware and software setup, this may limit the application of the approach.
 
 In conclusion, while PointCLIP presents an intriguing new way to approach 3D point cloud classification, further research and development are required to fully realize its potential.
+
+<div align="center">
+
+<h2>References</h2>
+
+</div>
+[1]. Zhang R., et al. PointCLIP: Point Cloud Understanding by CLIP. arXiv:2112.02413.
+[2]. He K., et al. Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 770–778, 2016.
+[3]. Carion N., et al. End-toend object detection with transformers. In European Conference on Computer Vision, pages 213–229. Springer, 2020.
+[4]. Chen L., et al. Semantic image segmentation with deep convolutional nets, atrous convolution, and fully connected crfs. IEEE transactions on pattern analysis and machine intelligence, 40(4):834–848, 2017.
+[5]. Qi C., et al. Pointnet: Deep learning on point sets for 3d classification and segmentation. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 652–660, 2017. 
+[6]. Guo M., et al. Pct: Point cloud transformer. Computational Visual Media, 7(2):187–199, 2021.
+[7]. Radford A., et al. Learning transferable visual models from natural language supervision. arXiv preprint arXiv:2103.00020, 2021.
+
