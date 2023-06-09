@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>Paper analysis on zero-shot classification of 3D point cloud
+<h1>Paper analysis on zero-shot classification of 3D point cloud</h1>
 
 </div>
 
@@ -8,7 +8,7 @@ In this blog post, I will review the paper PointCLIP: Point Cloud Understanding 
 
 <div align="center">
 
-<h2>Introduction
+<h2>Introduction</h2>
 
 </div>
 
@@ -23,7 +23,7 @@ This naturally leads us to a question: can such promising methods be successfull
 
 <div align="center">
 
-<h2>Method
+<h2>Method</h2>
 
 </div>
 
@@ -90,7 +90,7 @@ In essence, PointCLIP offers a method for transferring 2D pre-trained knowledge 
 
 <div align="center">
 
-<h2>Experimental results
+<h2>Experimental results</h2>
 
 </div>
 
@@ -128,7 +128,7 @@ Even though PointCLIP's accuracy was lower than the fully trained 3D models, it 
 
 <div align="center">
 
-<h2>Discussion
+<h2>Discussion</h2>
 
 </div>
 
