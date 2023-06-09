@@ -170,8 +170,7 @@ However, there are also some **potential limitations**:
 
 In conclusion, while PointCLIP presents an intriguing new way to approach 3D point cloud classification, further research and development are required to fully realize its potential.
 
-Here is a link for presentation slides of this blog post.
-<div align="center">
+Here is a <a href="https://github.com/yangcheng24/yangcheng24.github.io/blob/main/PointCLIP.pptx" target="_blank">link</a> for presentation slides of this blog post.
 
 <h2>Reference</h2>
 
