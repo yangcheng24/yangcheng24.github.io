@@ -4,7 +4,7 @@
 
 </div>
 
-In this blog post, I will review the paper PointCLIP: Point Cloud Understanding by CLIP published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the future works and my opinions on the paper.
+In this blog post, I will review the paper <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_PointCLIP_Point_Cloud_Understanding_by_CLIP_CVPR_2022_paper.pdf">PointCLIP: Point Cloud Understanding by CLIP </a> published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the future works and my opinions on the paper.
 
 <div align="center">
 
