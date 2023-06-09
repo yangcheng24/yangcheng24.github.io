@@ -17,6 +17,8 @@ Deep learning has undoubtedly revolutionized various computer vision tasks acros
 One specific challenge in the 3D world is dealing with point clouds - sets of data points in space that represent objects. Unlike 2D image data, 3D point clouds often suffer from space sparsity and irregular distribution, making it challenging to directly apply methods from the 2D realm. Even more interestingly, many newly captured point clouds contain objects from "unseen" categories, i.e., objects the model hasn't been trained on. This opens up a real challenge since even the best classifier might fail to recognize these objects, and re-training models each time when these "unseen" objects arise can be quite impractical.
 <div align="center">
     <img src="point_cloud.jpg" width="300"/>
+    <br>
+    <em>Fig.1 - This is how data cloud looks like</em>
 </div>
 
 In contrast, 2D vision tasks have made significant progress in mitigating similar issues, particularly through the use of Contrastive Vision-Language Pre-training (CLIP)[7]. By correlating vision and language, CLIP has shown promising results for zero-shot classification of "unseen" categories. Further enhancements have been achieved through the use of learnable tokens (CoOp), lightweight residual-style adapters (CLIP-Adapter), and efficiency improvements (Tip-Adapter). 
@@ -42,6 +44,8 @@ As I said in the Introduction, PointCLIP tries to transfer the pretrained knowle
 
 <div align="center">
     <img src="CLIP.png" width="700"/>
+    <br>
+    <em>Fig.2 - The pipeline of CLIP</em>
 </div>
 
 - **Contrastive Pre-Training**: CLIP is trained with a contrastive learning approach. This technique pushes the model to identify which data are similar and which are different. CLIP is trained to bring related images and text closer while distancing unrelated images and text in the embedding space.
@@ -67,6 +71,8 @@ After listing the main contributions of the paper, let me explain how the paper 
 In the zero-shot classification setting, the authors extract visual features from the projected images of different views using CLIP. For the textual branch, K category names are encoded as textual features within a predefined template. These features serve as a zero-shot classifier. 
 <div align="center">
     <img src="PointCLIP.png" width="700"/>
+    <br>
+    <em>Fig.3 - The pipeline of PointCLIP</em>
 </div>
 
 Classification logits for each view are calculated separately, and the final logits for the point cloud are obtained by performing a weighted summation of these individual logits. Each view's features encode a different perspective of the point cloud and are capable of independent zero-shot classification. Their aggregation further supplements the information from various perspectives to achieve a comprehensive understanding.
@@ -77,6 +83,8 @@ Considering scenarios where only a few instances of each unseen category are ava
 
 <div align="center">
     <img src="few.png" width="500"/>
+    <br>
+    <em>Fig.4 - This is how inter-view adaptor works</em>
 </div>
 
 M-view features of a point cloud are concatenated along the channel dimension, and a compact global representation is obtained via two linear layers of the inter-view adapter. Features from multiple perspectives are fused into a summarizing vector, which is then used to generate a view-wise adapted feature via a residual connection. The further calculation is the same as the calculation in zero-shot classification explained above.
@@ -87,6 +95,8 @@ Finally, the authors suggest the integration of PointCLIP with classical 3D netw
 
 <div align="center">
     <img src="ensemble.png" width="500"/>
+    <br>
+    <em>Fig.5 - Comparison of Training-testing Schemes between PointClip and PointNet++</em>
 </div>
 
 In essence, PointCLIP offers a method for transferring 2D pre-trained knowledge to 3D point clouds, coupled with an ensemble strategy for enhancing results. Particularly in scenarios where it's not feasible to train an entire model using large-scale fully annotated data, fine-tuning the three-layer adapter of PointCLIP with few-shot data can yield competitive performance.
@@ -105,6 +115,8 @@ Point clouds from six orthogonal views (front, right, back, left, top, and botto
 
 <div align="center">
     <img src="0.png" width="500"/>
+    <br>
+    <em>Fig.6 - Zero-shot Performance on different datasets with the best-performing settings</em>
 </div>
 
 PointCLIP performed surprisingly well without any 3D training, achieving **30.23%** accuracy on the ModelNet10 dataset, a notable success in transferring knowledge from 2D to 3D. For ModelNet40 and ScanObjectNN, the performance was slightly worse, at 20.18% and 15.38% respectively, likely due to the lack of 3D-specific adaptations.
@@ -115,6 +127,8 @@ PointCLIP was further tested in a few-shot classification setting with varying a
 
 <div align="center">
     <img src="few_shot.png" width="700"/>
+    <br>
+    <em>Fig.7 - Few-shot performance comparison between PointCLIP and other classical 3D networks on 3 datasets</em>
 </div>
 
 PointCLIP demonstrated distinct advantages when there were only a small number of samples per category, surpassing PointNet by **25.49%** and CurveNet by **12.29%** on ModelNet40 with just one shot. Even with more training samples, PointCLIP continued to lead in performance.
@@ -125,6 +139,8 @@ In the third experimental setup, PointCLIP was compared with traditional 3D netw
 
 <div align="center">
     <img src="ensemble_result.png" width="500"/>
+    <br>
+    <em>Fig.8 - The enhancement (%) of multi-knowledge ensemble by 16-shot PointCLIP, which achieves 87.20% on ModelNet40</em>
 </div>
 
 Even though PointCLIP's accuracy was lower than the fully trained 3D models, it improved their performance when combined in an ensemble. The best performance was achieved by combining PointCLIP with the state-of-the-art **CurveNet**, achieving an accuracy of **94.08%**. This experiment shows the complementary nature of PointCLIP to existing 3D models. The knowledge transferred from 2D to 3D via PointCLIP provides additional valuable information to traditional 3D learning methods.
