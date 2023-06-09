@@ -172,14 +172,20 @@ In conclusion, while PointCLIP presents an intriguing new way to approach 3D poi
 
 <div align="center">
 
-<h2>References</h2>
+<h2>Reference</h2>
 
 </div>
-[1]. Zhang R., et al. PointCLIP: Point Cloud Understanding by CLIP. arXiv:2112.02413.
-[2]. He K., et al. Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 770–778, 2016.
-[3]. Carion N., et al. End-toend object detection with transformers. In European Conference on Computer Vision, pages 213–229. Springer, 2020.
-[4]. Chen L., et al. Semantic image segmentation with deep convolutional nets, atrous convolution, and fully connected crfs. IEEE transactions on pattern analysis and machine intelligence, 40(4):834–848, 2017.
-[5]. Qi C., et al. Pointnet: Deep learning on point sets for 3d classification and segmentation. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 652–660, 2017. 
-[6]. Guo M., et al. Pct: Point cloud transformer. Computational Visual Media, 7(2):187–199, 2021.
-[7]. Radford A., et al. Learning transferable visual models from natural language supervision. arXiv preprint arXiv:2103.00020, 2021.
+- [1]. Zhang R., et al. PointCLIP: Point Cloud Understanding by CLIP. arXiv:2112.02413.
+
+- [2]. He K., et al. Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 770–778, 2016.
+
+- [3]. Carion N., et al. End-toend object detection with transformers. In European Conference on Computer Vision, pages 213–229. Springer, 2020.
+
+- [4]. Chen L., et al. Semantic image segmentation with deep convolutional nets, atrous convolution, and fully connected crfs. IEEE transactions on pattern analysis and machine intelligence, 40(4):834–848, 2017.
+
+- [5]. Qi C., et al. Pointnet: Deep learning on point sets for 3d classification and segmentation. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 652–660, 2017. 
+
+- [6]. Guo M., et al. Pct: Point cloud transformer. Computational Visual Media, 7(2):187–199, 2021.
+
+- [7]. Radford A., et al. Learning transferable visual models from natural language supervision. arXiv preprint arXiv:2103.00020, 2021.
 
