@@ -4,7 +4,7 @@
 
 </div>
 
-In this blog post, I will review the paper PointCLIP: Point Cloud Understanding by CLIP published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the future works and my opinion on the paper.
+In this blog post, I will review the paper PointCLIP: Point Cloud Understanding by CLIP published in CVPR 2022[1]. After briefly introducing the topic, I will explain the method in deteil. Then we will discuss the future works and my opinions on the paper.
 
 <div align="center">
 
@@ -18,8 +18,7 @@ One specific challenge in the 3D world is dealing with point clouds - sets of da
 
 In contrast, 2D vision tasks have made significant progress in mitigating similar issues, particularly through the use of Contrastive Vision-Language Pre-training (CLIP). By correlating vision and language, CLIP has shown promising results for zero-shot classification of "unseen" categories. Further enhancements have been achieved through the use of learnable tokens (CoOp), lightweight residual-style adapters (CLIP-Adapter), and efficiency improvements (Tip-Adapter). 
 
-This naturally leads us to a question: can such promising methods be successfully transferred to the more challenging domain of 3D point clouds? In this blog post, we introduce PointCLIP, a novel model that addresses this question by transferring CLIP's 2D pre-trained knowledge to 3D point cloud understanding. 
-
+This naturally leads us to a question: **can such promising methods be successfully transferred to the more challenging domain of 3D point clouds?** In this blog post, we introduce **PointCLIP**, a novel model that addresses this question by transferring CLIP's 2D pre-trained knowledge to 3D point cloud understanding. 
 
 <div align="center">
 
@@ -29,23 +28,24 @@ This naturally leads us to a question: can such promising methods be successfull
 
 ### Terminology
 
-- Zero-shot classification: the model recognize a certain class, without having been trained on any sample of this class before.
-- Few-shot classification: the model recognize a certain class, with having been trained on only a few samples of this class before.
+- **Zero-shot classification**: the model recognize a certain class, without having been trained on any sample of this class before.
+- **Few-shot classification**: the model recognize a certain class, with having been trained on only a few samples of this class before.
 
 As I said in the Introduction, PointCLIP tries to transfer the pretrained knowledge in 2D image in CLIP to the recognition of 3D point clouds, so it is necessary to introduce the main principles of CLIP here.
+
 ### A revisit to CLIP
 
-CLIP (Contrastive Language–Image Pretraining) is a multimodal vision-language model developed by OpenAI. Its goal is to understand the relationship between images and text, which is achieved by representing images and text in the same embedding space. In this space, associated images and texts are mapped closer together. Now, let me explain how it works by dividing its pipeline into three parts and explaining each part one by one.
+**CLIP** (Contrastive Language–Image Pretraining) is a multimodal vision-language model developed by OpenAI. Its goal is to understand the relationship between images and text, which is achieved by **representing images and text in the same embedding space**. In this space, associated images and texts are mapped closer together. Now, let me explain how it works by dividing its pipeline into three parts and explaining each part one by one.
 
 <div align="center">
     <img src="CLIP.png" width="700"/>
 </div>
 
-- Contrastive Pre-Training: CLIP is trained with a contrastive learning approach. This technique pushes the model to identify which data are similar and which are different. CLIP is trained to bring related images and text closer while distancing unrelated images and text in the embedding space.
-- Creating a Dataset Classifier from Label Text: After CLIP is pre-trained, we get the optimized text- and image encoders, then it can be used for downstream tasks, such as image classification, without task-specific fine-tuning. All possible classes the object on the input image may belong to are converted into textual prompts, and we input these textual prompts to the text-encoder, then we get the vectors of these textual prompts in the embedding space.
-- Use for Zero-Shot Prediction: We input unseen image to the image-encoder, then we get the vector of this image in the embedding space, after that we multiply this vector with the vectors of those textual prompts one by one, the biggest one among these multiplications implicates the class the unseen image belongs to.
+- **Contrastive Pre-Training**: CLIP is trained with a contrastive learning approach. This technique pushes the model to identify which data are similar and which are different. CLIP is trained to bring related images and text closer while distancing unrelated images and text in the embedding space.
+- **Creating a Dataset Classifier from Label Text**: After CLIP is pre-trained, we get the optimized text- and image encoders, then it can be used for downstream tasks, such as image classification, without task-specific fine-tuning. All possible classes the object on the input image may belong to are converted into textual prompts, and we input these textual prompts to the text-encoder, then we get the vectors of these textual prompts in the embedding space.
+- **Use for Zero-Shot Prediction**: We input unseen image to the image-encoder, then we get the vector of this image in the embedding space, after that we multiply this vector with the vectors of those textual prompts one by one, the biggest one among these multiplications implicates the class the unseen image belongs to.
 
-Now, we can finally introduce our protagonist, PointCLIP. The proposed PointCLIP is designed to address the disparity between the scale and diversity of 2D and 3D datasets, aiming to improve the understanding of 3D point cloud data. The primary idea behind PointCLIP is to leverage the pre-trained knowledge from the CLIP model, using it to carry out zero-shot learning on point clouds.
+Now, we can finally introduce our protagonist, PointCLIP. The proposed PointCLIP is designed to address the disparity between the scale and diversity of 2D and 3D datasets, aiming to improve the understanding of 3D point cloud data. The primary idea behind PointCLIP is to **leverage the pre-trained knowledge from the CLIP model**, using it to carry out zero-shot learning on point clouds.
 
 To facilitate this, point clouds are converted into representations that are compatible with CLIP by generating point-projected images from multiple views. This step bridges the modal gap between 2D and 3D data, making the point clouds easier for the model to process. Importantly, this is a cost-effective approach that doesn't require pre-transformation of the data, further enhancing its practical value.
 
@@ -54,8 +54,8 @@ To facilitate this, point clouds are converted into representations that are com
 Let's have a look at the main contributions of the paper:
 
 - Proposes PointCLIP to extend CLIP for handling 3D cloud data.
-- An inter-view adapter is introduced upon PointCLIP and largely improves the performance by few-shot fine-tuning.
-- PointCLIP can be utilized as a multi-knowledge ensemble module to enhance the performance of existing fully-trained 3D networks.
+- An **inter-view adapter** is introduced upon PointCLIP and largely improves the performance by few-shot fine-tuning.
+- PointCLIP can be utilized as a **multi-knowledge ensemble module** to enhance the performance of existing fully-trained 3D networks.
 
 After listing the main contributions of the paper, let me explain how the paper realized zero-shot classification, few-shot classification and multi-knowledge ensembel, which conresponding to the first, second and last of the main contributions listed above, respectively.
 
@@ -70,7 +70,7 @@ Classification logits for each view are calculated separately, and the final log
 
 ### Few-shot Classification
 
-Considering scenarios where only a few instances of each unseen category are available, the authors propose an inter-view adapter, a three-layer Multi-layer Perceptron (MLP) added to PointCLIP to enhance its performance in few-shot settings. During training, the visual and textual encoders of CLIP are frozen, and only the inter-view adapter is fine-tuned via cross-entropy loss.
+Considering scenarios where only a few instances of each unseen category are available, the authors propose an inter-view adapter, a **three-layer Multi-layer Perceptron (MLP)** added to PointCLIP to enhance its performance in few-shot settings. During training, the visual and textual encoders of CLIP are frozen, and only the inter-view adapter is fine-tuned via cross-entropy loss.
 
 <div align="center">
     <img src="few.png" width="500"/>
@@ -97,24 +97,24 @@ In essence, PointCLIP offers a method for transferring 2D pre-trained knowledge 
 
 ### Zero-shot Classification Settings
 
-PointCLIP was evaluated in a zero-shot classification setting on three popular datasets: ModelNet10, ModelNet40, and ScanObjectNN. The aim was to see how well PointCLIP could perform without any training data specific to these datasets. The pre-trained CLIP model used in this experiment employed ResNet-50 as the visual encoder and a transformer as the textual encoder.
+PointCLIP was evaluated in a zero-shot classification setting on three popular datasets: **ModelNet10**, **ModelNet40**, and **ScanObjectNN**. The aim was to see how well PointCLIP could perform without any training data specific to these datasets. The pre-trained CLIP model used in this experiment employed **ResNet-50** as the visual encoder and a **transformer** as the textual encoder.
 Point clouds from six orthogonal views (front, right, back, left, top, and bottom) were projected with each view having a relative weight value between 1 and 10. Point coordinates were normalized from -1 to 1 and image planes were set at a fixed distance away from the coordinate center. The projection settings influenced the point distribution on the image and the size of the projected object.
 
 <div align="center">
     <img src="0.png" width="500"/>
 </div>
 
-PointCLIP performed surprisingly well without any 3D training, achieving 30.23% accuracy on the ModelNet10 dataset, a notable success in transferring knowledge from 2D to 3D. For ModelNet40 and ScanObjectNN, the performance was slightly worse, at 20.18% and 15.38% respectively, likely due to the lack of 3D-specific adaptations.
+PointCLIP performed surprisingly well without any 3D training, achieving **30.23%** accuracy on the ModelNet10 dataset, a notable success in transferring knowledge from 2D to 3D. For ModelNet40 and ScanObjectNN, the performance was slightly worse, at 20.18% and 15.38% respectively, likely due to the lack of 3D-specific adaptations.
 
 ### Few-shot Classification Settings
 
-PointCLIP was further tested in a few-shot classification setting with varying amounts of shots (1, 2, 4, 8, 16) on the same datasets. The number of shots refers to the number of point clouds randomly sampled from each category in the training set. In this setting, the researchers used a stronger visual encoder (ResNet-101) for better feature extraction and increased the number of projected views to 10.
+PointCLIP was further tested in a few-shot classification setting with varying amounts of **shots (1, 2, 4, 8, 16)** on the same datasets. The number of shots refers to the number of point clouds randomly sampled from each category in the training set. In this setting, the researchers used a stronger visual encoder (ResNet-101) for better feature extraction and increased the number of projected views to 10.
 
 <div align="center">
     <img src="few_shot.png" width="700"/>
 </div>
 
-PointCLIP demonstrated distinct advantages when there were only a small number of samples per category, surpassing PointNet by 25.49% and CurveNet by 12.29% on ModelNet40 with just one shot. Even with more training samples, PointCLIP continued to lead in performance.
+PointCLIP demonstrated distinct advantages when there were only a small number of samples per category, surpassing PointNet by **25.49%** and CurveNet by **12.29%** on ModelNet40 with just one shot. Even with more training samples, PointCLIP continued to lead in performance.
 
 ### Multi-knowledge Ensemble Settings
 
@@ -124,7 +124,7 @@ In the third experimental setup, PointCLIP was compared with traditional 3D netw
     <img src="ensemble_result.png" width="500"/>
 </div>
 
-Even though PointCLIP's accuracy was lower than the fully trained 3D models, it improved their performance when combined in an ensemble. The best performance was achieved by combining PointCLIP with the state-of-the-art CurveNet, achieving an accuracy of 94.08%. This experiment shows the complementary nature of PointCLIP to existing 3D models. The knowledge transferred from 2D to 3D via PointCLIP provides additional valuable information to traditional 3D learning methods.
+Even though PointCLIP's accuracy was lower than the fully trained 3D models, it improved their performance when combined in an ensemble. The best performance was achieved by combining PointCLIP with the state-of-the-art **CurveNet**, achieving an accuracy of **94.08%**. This experiment shows the complementary nature of PointCLIP to existing 3D models. The knowledge transferred from 2D to 3D via PointCLIP provides additional valuable information to traditional 3D learning methods.
 
 <div align="center">
 
