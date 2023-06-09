@@ -149,6 +149,4 @@ However, there are also some **potential limitations**:
 
 - **Computational Costs**: The use of multiple views and multiple prompt designs might increase computational costs. Depending on the hardware and software setup, this may limit the application of the approach.
 
-- **Lack of Comparative Analysis**: While the paper includes some comparisons with state-of-the-art models, a more thorough comparative analysis with other 3D point cloud classification methods would strengthen the results.
-
 In conclusion, while PointCLIP presents an intriguing new way to approach 3D point cloud classification, further research and development are required to fully realize its potential.
