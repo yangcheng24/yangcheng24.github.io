@@ -177,9 +177,12 @@ In conclusion, while PointCLIP presents an intriguing new way to approach 3D poi
 
 Here is a <a href="https://github.com/yangcheng24/yangcheng24.github.io/blob/main/PointCLIP.pptx" target="_blank">link</a> for presentation slides of this blog post.
 
+<div align="center">
+
 <h2>Reference</h2>
 
 </div>
+
 - [1]. Zhang R., et al. PointCLIP: Point Cloud Understanding by CLIP. arXiv:2112.02413.
 
 - [2]. He K., et al. Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 770–778, 2016.
