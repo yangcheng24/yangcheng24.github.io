@@ -63,7 +63,7 @@ After listing the main contributions of the paper, let me explain how the paper 
 
 In the zero-shot classification setting, the authors extract visual features from the projected images of different views using CLIP. For the textual branch, K category names are encoded as textual features within a predefined template. These features serve as a zero-shot classifier. 
 <div align="center">
-    <img src="CLIP.png" width="700"/>
+    <img src="PointCLIP.png" width="700"/>
 </div>
 
 Classification logits for each view are calculated separately, and the final logits for the point cloud are obtained by performing a weighted summation of these individual logits. Each view's features encode a different perspective of the point cloud and are capable of independent zero-shot classification. Their aggregation further supplements the information from various perspectives to achieve a comprehensive understanding.
@@ -111,7 +111,7 @@ PointCLIP performed surprisingly well without any 3D training, achieving 30.23% 
 PointCLIP was further tested in a few-shot classification setting with varying amounts of shots (1, 2, 4, 8, 16) on the same datasets. The number of shots refers to the number of point clouds randomly sampled from each category in the training set. In this setting, the researchers used a stronger visual encoder (ResNet-101) for better feature extraction and increased the number of projected views to 10.
 
 <div align="center">
-    <img src="few_shot.png" width="500"/>
+    <img src="few_shot.png" width="700"/>
 </div>
 
 PointCLIP demonstrated distinct advantages when there were only a small number of samples per category, surpassing PointNet by 25.49% and CurveNet by 12.29% on ModelNet40 with just one shot. Even with more training samples, PointCLIP continued to lead in performance.
